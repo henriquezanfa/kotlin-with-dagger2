@@ -31,10 +31,18 @@
 package com.raywenderlich.android.dagger.application
 
 import android.app.Application
+import com.raywenderlich.android.dagger.dagger.AppComponent
+import com.raywenderlich.android.dagger.dagger.AppModule
+import com.raywenderlich.android.dagger.dagger.DaggerAppComponent
 
 class WikiApplication : Application() {
-//https://www.raywenderlich.com/262-dependency-injection-in-android-with-dagger-2-and-kotlin
-  override fun onCreate() {
-    super.onCreate()
-  }
+    lateinit var wikiComponent: AppComponent
+
+    override fun onCreate() {
+        super.onCreate()
+        wikiComponent = initDagger(this)
+    }
+
+    private fun initDagger(app: WikiApplication): AppComponent =
+            DaggerAppComponent.builder().appModule(AppModule(app)).build()
 }
