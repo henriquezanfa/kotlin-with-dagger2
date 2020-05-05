@@ -1,5 +1,7 @@
 package com.raywenderlich.android.dagger.dagger
 
+import com.raywenderlich.android.dagger.network.Homepage
+import com.raywenderlich.android.dagger.network.Wiki
 import com.raywenderlich.android.dagger.ui.homepage.HomepagePresenter
 import com.raywenderlich.android.dagger.ui.homepage.HomepagePresenterImpl
 import com.raywenderlich.android.dagger.ui.search.EntryPresenter
@@ -14,9 +16,9 @@ class PresenterModule {
     @Provides
     //specifying that a HomepagePresenter will be provided,
     // and that the presenter returned will be the concrete implementation HomepagePresenterImpl.
-    fun provideHomepagePresenter(): HomepagePresenter = HomepagePresenterImpl()
+    fun provideHomepagePresenter(homepage: Homepage): HomepagePresenter = HomepagePresenterImpl(homepage)
 
     @Singleton
     @Provides
-    fun provideEntryPresenter(): EntryPresenter = EntryPresenterImpl()
+    fun provideEntryPresenter(wiki: Wiki): EntryPresenter = EntryPresenterImpl(wiki)
 }

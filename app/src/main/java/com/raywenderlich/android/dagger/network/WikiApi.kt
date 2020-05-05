@@ -30,42 +30,42 @@
 
 package com.raywenderlich.android.dagger.network
 
-import com.raywenderlich.android.dagger.utils.Const
 import okhttp3.Call
 import okhttp3.HttpUrl
 import okhttp3.OkHttpClient
 import okhttp3.Request
 
-class WikiApi(private val client: OkHttpClient) {
+@Suppress("NULLABILITY_MISMATCH_BASED_ON_JAVA_ANNOTATIONS")
+class WikiApi(private val client: OkHttpClient, private val requestBuilder: HttpUrl.Builder?) {
 
-  fun search(query: String): Call {
-    val urlBuilder = HttpUrl.parse("${Const.PROTOCOL}://${Const.LANGUAGE}.${Const.BASE_URL}")?.newBuilder()
-        ?.addQueryParameter("action", "query")
-        ?.addQueryParameter("list", "search")
-        ?.addQueryParameter("format", "json")
-        ?.addQueryParameter("srsearch", query)
+    fun search(query: String): Call {
+        val urlBuilder = requestBuilder
+                ?.addQueryParameter("action", "query")
+                ?.addQueryParameter("list", "search")
+                ?.addQueryParameter("format", "json")
+                ?.addQueryParameter("srsearch", query)
 
-    return Request.Builder()
-        .url(urlBuilder?.build())
-        .get()
-        .build()
-        .let {
-          client.newCall(it)
-        }
-  }
+        return Request.Builder()
+                .url(urlBuilder?.build())
+                .get()
+                .build()
+                .let {
+                    client.newCall(it)
+                }
+    }
 
-  fun getHomepage(): Call {
-    val urlBuilder = HttpUrl.parse("${Const.PROTOCOL}://${Const.LANGUAGE}.${Const.BASE_URL}")?.newBuilder()
-        ?.addQueryParameter("action", "parse")
-        ?.addQueryParameter("page", "Main Page")
-        ?.addQueryParameter("format", "json")
+    fun getHomepage(): Call {
+        val urlBuilder = requestBuilder
+                ?.addQueryParameter("action", "parse")
+                ?.addQueryParameter("page", "Main Page")
+                ?.addQueryParameter("format", "json")
 
-    return Request.Builder()
-        .url(urlBuilder?.build())
-        .get()
-        .build()
-        .let {
-          client.newCall(it)
-        }
-  }
+        return Request.Builder()
+                .url(urlBuilder?.build())
+                .get()
+                .build()
+                .let {
+                    client.newCall(it)
+                }
+    }
 }
