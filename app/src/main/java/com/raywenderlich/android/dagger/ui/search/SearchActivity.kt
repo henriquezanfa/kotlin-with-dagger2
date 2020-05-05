@@ -41,15 +41,20 @@ import com.raywenderlich.android.dagger.model.Entry
 import kotlinx.android.synthetic.main.activity_search.*
 import android.widget.SearchView
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.raywenderlich.android.dagger.application.WikiApplication
 import com.raywenderlich.android.dagger.utils.errorDialog
+import javax.inject.Inject
 
 class SearchActivity : Activity(), EntryView {
 
-  private val presenter: EntryPresenter = EntryPresenterImpl()
+  @Inject
+  lateinit var presenter : EntryPresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_search)
+
+    (application as WikiApplication).wikiComponent.inject(this)
 
     actionBar?.setHomeAsUpIndicator(R.drawable.ic_home)
     actionBar?.setDisplayHomeAsUpEnabled(true)

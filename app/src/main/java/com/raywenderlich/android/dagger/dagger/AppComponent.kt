@@ -1,6 +1,7 @@
 package com.raywenderlich.android.dagger.dagger
 
 import com.raywenderlich.android.dagger.ui.homepage.HomepageActivity
+import com.raywenderlich.android.dagger.ui.search.SearchActivity
 import dagger.Component
 import javax.inject.Singleton
 
@@ -11,4 +12,6 @@ interface AppComponent {
 
     // The HomepageActivity class will require injection from AppComponent.
     fun inject(target: HomepageActivity)
+
+    fun inject(target: SearchActivity)
 }
