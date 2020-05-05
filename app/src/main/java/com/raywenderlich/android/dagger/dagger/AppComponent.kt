@@ -6,7 +6,7 @@ import javax.inject.Singleton
 
 @Singleton
 // The component is used to connect objects to their dependencies,
-@Component(modules = [AppModule::class])
+@Component(modules = [AppModule::class, PresenterModule::class])
 interface AppComponent {
 
     // The HomepageActivity class will require injection from AppComponent.
