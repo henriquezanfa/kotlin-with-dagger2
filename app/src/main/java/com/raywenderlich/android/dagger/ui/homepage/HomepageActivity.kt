@@ -37,20 +37,26 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.raywenderlich.android.dagger.R
+import com.raywenderlich.android.dagger.application.WikiApplication
 import com.raywenderlich.android.dagger.model.WikiHomepage
 import com.raywenderlich.android.dagger.utils.start
 import com.raywenderlich.android.dagger.utils.parseHtml
 import kotlinx.android.synthetic.main.activity_homepage.*
 import com.raywenderlich.android.dagger.ui.search.SearchActivity
 import com.raywenderlich.android.dagger.utils.errorDialog
+import javax.inject.Inject
 
 class HomepageActivity : Activity(), HomepageView {
 
-  private val presenter: HomepagePresenter = HomepagePresenterImpl()
+  // The @Inject annotation tells Dagger that you
+  // want it to do an injection of the presenter field
+  @Inject lateinit var presenter: HomepagePresenter
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_homepage)
+
+    (application as WikiApplication).wikiComponent.inject(this)
 
     presenter.setView(this)
     presenter.loadHomepage()
